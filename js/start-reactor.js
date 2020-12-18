@@ -41,6 +41,15 @@ startReactor = {
             ledPanel.children[index].classList.add("ledOn");
     },
 
+        turnAllLedsOff() {
+            const computerLedPanel = startReactor.interface.computerLedPanel
+            const playerLedPanel = startReactor.interface.playerLedPanel
+
+            for (var i = 0; i < computerLedPanel.children.lenght; i++) {
+                computerLedPanel.children[i].classList.remove("ledOn")
+            }
+        }
+
     load() { },
     start() { 
         startReactor.computerCombination = startReactor.createCombination()
