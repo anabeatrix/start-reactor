@@ -52,6 +52,20 @@ startReactor = {
 
         async start() {
             return startReactor.audio.start.play()
+        },
+
+        playItem(index, combinationPosition, location = 'computer') {
+            const leds = (location == 'computer') ? startReactor.interface.computerLedPanel : startReactor.interface.playerLedPanel
+            const memPanel = startReactor.interface.memoryPanel.children[index]
+
+            memPanel.classList.add("memoryActive")
+            startReactor.interface.turnLedOn(combinationPosition, leds)
+            startReactor.audio.combinations[index].play().then(() => {
+                setTimeout(() => {
+                    memPanel.classList.remove("memoryActive")
+                }, 150)
+            })
+
         }
     },
 
