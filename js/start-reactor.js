@@ -48,13 +48,23 @@ startReactor = {
             for (var i = 0; i < computerLedPanel.children.lenght; i++) {
                 computerLedPanel.children[i].classList.remove("ledOn")
             }
+        },
+
+        async start() {
+            return startReactor.audio.start.play()
         }
+    },
 
     load() { },
     start() { 
         startReactor.computerCombination = startReactor.createCombination()
         startReactor.computerCombinationPosition = 1
         startReactor.playerCombination = []
+        startReactor.interface.start().then(() => {
+            setTimeout(() => {
+                startReactor.playCombination()
+            }, 500)
+        })
     },
 
     createCombination() {
@@ -64,5 +74,9 @@ startReactor = {
             newCombination.push(position - 1)
         }
         return newCombination
+    },
+
+    playCombination() {
+
     }
 }
