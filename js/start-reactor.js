@@ -143,10 +143,10 @@ startReactor = {
         },
     },
 
-    load() {
+    async load() {
         return new Promise(resolve => {
             console.log("Loading Game...")
-            start.audio.loadAudios()
+            startReactor.audio.loadAudios()
 
             const playerMemory = startReactor.interface.playerMemory
             const memory = startReactor.interface.playerMemoryButtons
@@ -188,11 +188,11 @@ startReactor = {
     },
 
     play(index) {
-        startReactor.interface.playItem(index, startReactor.playCombination.lenght, "player")
-        startReactor.playCombination.push(index)
+        startReactor.interface.playItem(index, startReactor.playerCombination.lenght, "player")
+        startReactor.playerCombination.push(index)
 
-        if (startReactor.isTheRightCombination(startReactor.playCombination.lenght)) {
-            if (startReactor.playCombination.lenght == startReactor.combinationMaxPosition) {
+        if (startReactor.isTheRightCombination(startReactor.playerCombination.lenght)) {
+            if (startReactor.playerCombination.lenght == startReactor.combinationMaxPosition) {
                 startReactor.interface.endGame("complete")
                 setTimeout(() => {
                     startReactor.start()
@@ -200,7 +200,7 @@ startReactor = {
                 return
             }
 
-            if (startReactor.playCombination.lenght == startReactor.computerCombinationPosition) {
+            if (startReactor.playerCombination.lenght == startReactor.computerCombinationPosition) {
                 startReactor.computerCombinationPosition++
                 setTimeout(() => {
                     startReactor.playCombination()
@@ -219,11 +219,11 @@ startReactor = {
     },
 
     playCombination() {
-        startReactor.playCombination = []
+        startReactor.playerCombination = []
         startReactor.interface.disableButtons()
         startReactor.interface.turnAllLedsOff()
 
-        for (let i = 0; i = startReactor.computerCombinationPosition - 1; i++) {
+        for (let i = 0; i <= startReactor.computerCombinationPosition - 1; i++) {
             setTimeout(() => {
                 startReactor.interface.playItem(startReactor.computerCombination[i], i)
             }, 400 * (i + 1))
@@ -238,6 +238,6 @@ startReactor = {
 
     isTheRightCombination(position) {
         let computerCombination = startReactor.computerCombination.slice(0, position)
-        return (computerCombination.toString() == startReactor.playCombination.toString())
+        return (computerCombination.toString() == startReactor.playerCombination.toString())
     }
 }
