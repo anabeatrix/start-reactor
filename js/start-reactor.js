@@ -143,7 +143,7 @@ startReactor = {
         },
     },
 
-    load() { 
+    load() {
         return new Promise(resolve => {
             console.log("Loading Game...")
             start.audio.loadAudios()
@@ -153,7 +153,7 @@ startReactor = {
 
             Array.prototype.forEach.call(memory, (element) => {
                 element.addEventListener("click", () => {
-                    if(playerMemory.classList.contains("playerActive")) {
+                    if (playerMemory.classList.contains("playerActive")) {
                         startReactor.play(parseInt(element.dataset.memory))
                         console.log("O valor do elemento clicado é:" + element.dataset.memory)
 
@@ -191,8 +191,8 @@ startReactor = {
         startReactor.interface.playItem(index, startReactor.playCombination.lenght, "player")
         startReactor.playCombination.push(index)
 
-        if(startReactor.isTheRightCombination(startReactor.playCombination.lenght)) {
-            if ( startReactor.playCombination.lenght == startReactor.combinationMaxPosition) {
+        if (startReactor.isTheRightCombination(startReactor.playCombination.lenght)) {
+            if (startReactor.playCombination.lenght == startReactor.combinationMaxPosition) {
                 startReactor.interface.endGame("complete")
                 setTimeout(() => {
                     startReactor.start()
@@ -200,8 +200,22 @@ startReactor = {
                 return
             }
 
+            if (startReactor.playCombination.lenght == startReactor.computerCombinationPosition) {
+                startReactor.computerCombinationPosition++
+                setTimeout(() => {
+                    startReactor.playCombination()
+                }, 1200)
+                return
+            }
+        } else {
+            startReactor.interface.endGame("fail")
+            document.getElementById("title").textContent = "Você é o impostor"
+            setTimeout(() => {
+                document.getElementById("title").textContent = "START REACTOR"
+                startReactor.start()
+            }, 1400)
+            return
         }
-
     },
 
     playCombination() { },
