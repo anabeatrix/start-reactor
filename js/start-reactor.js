@@ -164,7 +164,7 @@ startReactor = {
             })
         })
     },
-    
+
     start() {
         startReactor.computerCombination = startReactor.createCombination();
         startReactor.computerCombinationPosition = 1;
@@ -187,5 +187,27 @@ startReactor = {
         return newCombination;
     },
 
+    play(index) {
+        startReactor.interface.playItem(index, startReactor.playCombination.lenght, "player")
+        startReactor.playCombination.push(index)
+
+        if(startReactor.isTheRightCombination(startReactor.playCombination.lenght)) {
+            if ( startReactor.playCombination.lenght == startReactor.combinationMaxPosition) {
+                startReactor.interface.endGame("complete")
+                setTimeout(() => {
+                    startReactor.start()
+                }, 120)
+                return
+            }
+
+        }
+
+    },
+
     playCombination() { },
+
+    isTheRightCombination(position) {
+        let computerCombination = startReactor.computerCombination.slice(0, position)
+        return (computerCombination.toString() == startReactor.playCombination.toString())
+    }
 }
