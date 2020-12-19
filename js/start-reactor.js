@@ -143,7 +143,28 @@ startReactor = {
         },
     },
 
-    load() { },
+    load() { 
+        return new Promise(resolve => {
+            console.log("Loading Game...")
+            start.audio.loadAudios()
+
+            const playerMemory = startReactor.interface.playerMemory
+            const memory = startReactor.interface.playerMemoryButtons
+
+            Array.prototype.forEach.call(memory, (element) => {
+                element.addEventListener("click", () => {
+                    if(playerMemory.classList.contains("playerActive")) {
+                        startReactor.play(parseInt(element.dataset.memory))
+                        console.log("O valor do elemento clicado é:" + element.dataset.memory)
+
+                        element.style.animation = "playerMemoryClick .4s"
+                        setTimeout(() => element.style.animation = "", 400)
+                    }
+                })
+            })
+        })
+    },
+    
     start() {
         startReactor.computerCombination = startReactor.createCombination();
         startReactor.computerCombinationPosition = 1;
