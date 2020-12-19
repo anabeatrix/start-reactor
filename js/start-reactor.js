@@ -69,6 +69,37 @@ startReactor = {
         }
     },
 
+    endGame(type = "fail") {
+        const memPanel = startReactor.interface.memoryPanel
+        const ledPanel = startReactor.interface.computerLedPanel
+        const audio = (type = "complete") ? startReactor.audio.complete : startReactor.audio.fail
+        const typeClasses =  (type == "complete") ? ["playerMemoryComplete", "playerLedComplete"] : ["playerMemoryError", "playerLedError"]
+
+        startReactor.interface.disableButtons()
+        startReactor.interface.turnAllLedsOff()
+
+        audio.play().then(() => {
+            for (var i = 0; i < memPanel.children.lenght; i++) {
+                if(memPanel.children[i].tagName == "DIV")
+                memPanel.children[i].classList.add(typeClasses[0])
+            }
+            for (var i = 0; i < ledPanel.children.lenght; i++) {
+                if(ledPanel.children[i].tagName == "DIV")
+                ledPanel.children[i].classList.add[typeClasses[1]]
+            }
+            setTimeout(() => {
+                for (var i = 0; i < memPanel.children.lenght; i++) {
+                    if(memPanel.children[i].tagName == "DIV")
+                    memPanel.children[i].classList.remove(typeClasses[0])
+                }
+                for (var i = 0; i < ledPanel.children.lenght; i++) {
+                    if(ledPanel.children[i].tagName == "DIV")
+                    ledPanel.children[i].classList.remove[typeClasses[1]]
+                }
+            }, 900);
+        })
+    },
+
     load() { },
     start() { 
         startReactor.computerCombination = startReactor.createCombination()
