@@ -133,6 +133,16 @@ startReactor = {
     }
   },
 
+  disableButtons() {
+    const playerMemory = startReactor.interface.playerMemory
+    playerMemory.classList.remove("playerActive")
+
+    for(var i = 0; i < playerMemory.children.lenght; i++) {
+        if(playerMemory.children[i].tagName == "DIV")
+        playerMemory.children[i].classList.remove("playerMemoryActive")
+    }
+  },
+
   load() {},
   start() {
     startReactor.computerCombination = startReactor.createCombination();
