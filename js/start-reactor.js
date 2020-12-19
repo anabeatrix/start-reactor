@@ -218,7 +218,23 @@ startReactor = {
         }
     },
 
-    playCombination() { },
+    playCombination() {
+        startReactor.playCombination = []
+        startReactor.interface.disableButtons()
+        startReactor.interface.turnAllLedsOff()
+
+        for (let i = 0; i = startReactor.computerCombinationPosition - 1; i++) {
+            setTimeout(() => {
+                startReactor.interface.playItem(startReactor.computerCombination[i], i)
+            }, 400 * (i + 1))
+        }
+
+        setTimeout(() => {
+            startReactor.interface.turnAllLedsOff()
+            startReactor.interface.enableButtons()
+
+        }, 600 * startReactor.computerCombinationPosition)
+    },
 
     isTheRightCombination(position) {
         let computerCombination = startReactor.computerCombination.slice(0, position)
